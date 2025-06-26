@@ -1,0 +1,558 @@
+/* Base styles for the body, header, and general layout */
+body {
+    font-family: sans-serif;
+    margin: 0;
+    background-color: #F8F8F8; /* Slightly off-white for a softer background */
+    color: #282828; /* Very dark grey text for general content */
+    line-height: 1.6;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    min-height: 100vh; /* Ensures the body takes full viewport height */
+    display: flex;
+    flex-direction: column; /* Allows footer to stick to the bottom */
+}
+
+body.loaded {
+    opacity: 1; /* Fade in effect on page load */
+}
+
+header {
+    background: #282828; /* Solid dark grey header */
+    padding: 1.5rem 1rem; /* More vertical padding */
+    font-family: 'Anton', sans-serif;
+    animation: slideDown 1s ease;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+header .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px; /* Increased gap */
+    flex-direction: column; /* Stack vertically on small screens */
+}
+
+@media (min-width: 768px) { /* Adjust for larger screens (tablets and desktops) */
+    header .header-content {
+        flex-direction: row; /* Arrange horizontally on larger screens */
+        gap: 30px; /* More spacing on desktop */
+    }
+}
+
+header img {
+    height: 70px; /* Slightly smaller logo */
+    width: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #D4D4D4; /* Light grey border for logo */
+}
+
+header h1 {
+    font-size: 2.2rem; /* Slightly smaller main heading */
+    margin: 0;
+    letter-spacing: 0.5px; /* Reduced letter spacing */
+    color: #FFFFFF; /* White for heading */
+    font-weight: normal; /* Less bold */
+}
+
+@media (min-width: 768px) {
+    header h1 {
+        font-size: 3rem; /* Larger heading for desktop */
+    }
+}
+
+header p {
+    font-size: 0.9rem; /* Slightly smaller subheading */
+    margin-top: 0.3rem;
+    font-weight: 300;
+    text-align: center;
+    color: #B3B3B3; /* Medium grey for subheading */
+}
+
+/* Homepage Sections - Layout for the three main categories */
+.homepage-sections {
+    display: grid;
+    grid-template-columns: 1fr; /* Single column on mobile */
+    gap: 2rem; /* Increased gap for more whitespace */
+    padding: 2rem 1.5rem; /* More padding around sections */
+    max-width: 1000px; /* Max width for content, slightly smaller */
+    margin: 3rem auto; /* Increased vertical margin */
+    flex-grow: 1; /* Allows this section to take up available space */
+    animation: fadeIn 1s ease;
+}
+
+@media (min-width: 768px) { /* Two columns for tablets */
+    .homepage-sections {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 3rem; /* Even more gap */
+        padding: 3rem 2rem;
+    }
+}
+
+@media (min-width: 1024px) { /* Three columns for larger desktops */
+    .homepage-sections {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Styling for individual category cards on the homepage */
+.section-card {
+    background: #FFFFFF; /* White background for cards */
+    border-radius: 8px; /* Slightly less rounded corners */
+    padding: 2rem; /* More internal padding */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Lighter, softer shadow */
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none; /* Remove underline from <a> tag */
+    color: inherit; /* Inherit text color from parent */
+    border: 1px solid #EDEDED; /* Very subtle light grey border */
+}
+
+.section-card:hover {
+    transform: translateY(-5px); /* Subtle lift on hover */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
+}
+
+.section-card h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.6rem; /* Slightly smaller title */
+    color: #2B2B2B; /* Dark grey for card titles */
+    margin-bottom: 0.8rem;
+    font-weight: normal;
+}
+
+@media (min-width: 768px) {
+    .section-card h2 {
+        font-size: 2rem;
+    }
+}
+
+.section-card p {
+    font-size: 0.9rem; /* Smaller description text */
+    color: #666666; /* Medium grey for card descriptions */
+    margin-bottom: 1.5rem; /* More space below description */
+    line-height: 1.5;
+}
+
+.section-card .btn-explore {
+    background: #2B2B2B; /* Dark grey for button */
+    color: #FFFFFF; /* White text for button */
+    padding: 12px 25px; /* More padding for a bolder button */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.95rem; /* Slightly larger font */
+    font-weight: 600; /* Semi-bold */
+    transition: background 0.2s ease-out, transform 0.1s ease-out;
+    letter-spacing: 0.5px;
+}
+
+.section-card .btn-explore:hover {
+    background: #4A4A4A; /* Slightly lighter dark grey on hover */
+    transform: translateY(-2px);
+}
+
+/* Product Listing Sections - for Affordable, Premium, Combo pages */
+.product-category-section {
+    padding: 2rem 1.5rem; /* Consistent padding */
+    flex-grow: 1;
+}
+
+.product-category-section .section-title {
+    font-family: 'Anton', sans-serif;
+    font-size: 2.2rem;
+    color: #2B2B2B; /* Dark grey for section titles */
+    text-align: center;
+    margin-bottom: 2rem; /* More space below title */
+    margin-top: 1.5rem;
+    font-weight: normal;
+}
+
+.product-category-section .back-button {
+    background: #E0E0E0; /* Lighter grey for back button */
+    color: #2B2B2B; /* Dark grey text */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-bottom: 2rem; /* More space below button */
+    display: block; /* Make it block to center */
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content; /* Adjust width to content */
+    text-decoration: none; /* Remove underline from <a> tag */
+    transition: background 0.2s ease-out, transform 0.1s ease-out;
+    font-weight: 500;
+}
+
+.product-category-section .back-button:hover {
+    background: #D4D4D4; /* Slightly darker light grey on hover */
+    transform: translateY(-2px);
+}
+
+/* Grid for products within category sections */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid for products */
+    gap: 2rem; /* More space between products */
+    padding: 0 1rem; /* Adjust padding for inner grid */
+    max-width: 1200px; /* Align with general content width */
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2.5rem;
+    }
+}
+
+/* Styling for individual product cards */
+.product {
+    background: #FFFFFF; /* White background for product cards */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Softer shadow */
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    display: flex;
+    flex-direction: column; /* Stack image and info vertically */
+    border: 1px solid #EDEDED; /* Very subtle light grey border */
+}
+
+.product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.product-slider {
+    position: relative;
+    width: 100%;
+    padding-top: 90%; /* Maintain a 4:3 aspect ratio for images */
+    overflow: hidden;
+    background-color: #EEEEEE; /* Placeholder background for images */
+}
+
+.product-slider img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.product-slider img.active {
+    opacity: 1; /* Show active image */
+}
+
+.slider-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    z-index: 10;
+}
+
+.slider-controls button {
+    background: rgba(43, 43, 43, 0.6); /* Slightly more opaque dark grey */
+    color: #FFFFFF; /* White text */
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px; /* Slightly smaller border radius */
+    cursor: pointer;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    transition: opacity 0.2s ease, background 0.2s ease;
+}
+
+.slider-controls button:hover {
+    opacity: 1;
+    background: rgba(43, 43, 43, 0.8);
+}
+
+.prev-btn, .next-btn {
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+}
+
+.product-info {
+    padding: 1.2rem; /* More padding inside product info */
+    flex-grow: 1; /* Allows info section to fill remaining space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product h3 {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.2rem; /* Smaller product title */
+    color: #2B2B2B; /* Dark grey for product names */
+    margin-bottom: 0.5rem;
+    font-weight: normal;
+}
+
+@media (min-width: 768px) {
+    .product h3 {
+        font-size: 1.4rem;
+    }
+}
+
+.product p {
+    font-size: 0.85rem; /* Smaller description text */
+    color: #666666; /* Medium grey for descriptions */
+    margin: 0.4rem 0 1rem; /* More space below description */
+}
+
+.product .price-info {
+    margin-top: auto; /* Pushes price and button to the bottom */
+    padding-top: 0.8rem; /* More space above price */
+    border-top: 1px dashed #E0E0E0; /* Subtle dashed border */
+    text-align: center;
+}
+
+.product .price-info strong {
+    color: #2B2B2B; /* Dark grey for current price */
+    font-size: 1.1rem; /* Slightly smaller price */
+    font-weight: 600; /* Semi-bold */
+}
+
+.product .price-info span {
+    text-decoration: line-through;
+    color: #999999; /* Medium grey for original price (strikethrough) */
+    font-size: 0.8rem; /* Smaller original price */
+    margin-right: 0.5rem;
+}
+
+.btn-add {
+    background: #2B2B2B; /* Dark grey for Add to Cart button */
+    color: #FFFFFF; /* White text */
+    padding: 10px 15px; /* Consistent button padding */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1rem; /* More space above button */
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background 0.2s ease-out, transform 0.1s ease-out;
+    width: 100%; /* Full width button for better mobile usability */
+    letter-spacing: 0.5px;
+}
+
+.btn-add:hover {
+    background: #4A4A4A; /* Slightly lighter dark grey on hover */
+    transform: translateY(-2px);
+}
+
+/* Cart Section Styling */
+.cart-section {
+    text-align: center;
+    padding: 2rem 1.5rem; /* More padding */
+    margin-top: auto; /* Pushes cart to the bottom if content is short */
+    background-color: #282828; /* Very dark grey for cart section background */
+    border-top: 1px solid #444444; /* Darker grey accent border */
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1); /* Subtle top shadow */
+}
+
+#cartPreview {
+    color: #D4D4D4; /* Light grey for general cart text */
+}
+
+#cartPreview h2 {
+    color: #FFFFFF; /* White for cart heading */
+    margin-bottom: 1rem; /* More space */
+    font-size: 1.8rem; /* Larger cart heading */
+    font-weight: normal;
+}
+
+#cartItems {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto 1.5rem; /* More margin below cart items */
+    max-width: 90%;
+    text-align: left;
+    word-wrap: break-word; /* Prevents overflow for long item names */
+}
+
+#cartItems li {
+    padding: 8px 0; /* More vertical padding for list items */
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed #444444; /* Subtle dashed separator */
+}
+
+#cartItems li:last-child {
+    border-bottom: none; /* No border for the last item */
+}
+
+#cartItems li .remove-item {
+    background: none;
+    border: none;
+    color: #FF6347; /* Tomato (a bright red for remove button) - still stands out */
+    font-size: 1.3rem; /* Slightly larger remove icon */
+    cursor: pointer;
+    margin-left: 10px;
+    transition: color 0.2s ease;
+}
+
+#cartItems li .remove-item:hover {
+    color: #E63D2A; /* Darker red on hover */
+}
+
+#referralInput {
+    margin-top: 1.5rem; /* More space above input */
+    padding: 10px; /* More padding */
+    width: calc(100% - 40px); /* Adjust width */
+    max-width: 350px; /* Max width for input */
+    border-radius: 5px;
+    border: 1px solid #666666; /* Subtle grey border */
+    font-size: 0.9rem;
+    background-color: #4A4A4A; /* Darker background for input */
+    color: #FFFFFF; /* White text for input */
+    box-sizing: border-box; /* Include padding in the width calculation */
+    outline: none; /* Remove default outline */
+}
+
+#referralInput::placeholder {
+    color: #B3B3B3; /* Light grey placeholder */
+}
+
+.cart-btn {
+    display: inline-block;
+    margin-top: 2rem; /* More space above button */
+    background: #25D366; /* WhatsApp green (kept for branding) */
+    color: #282828; /* Dark grey text for WhatsApp button */
+    padding: 15px 30px; /* Larger button */
+    font-size: 1.1rem; /* Larger font */
+    border-radius: 8px; /* More rounded */
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.2s ease-out, transform 0.1s ease-out;
+    font-weight: 600;
+}
+
+.cart-btn:hover {
+    background: #1DA851; /* Darker green on hover */
+    transform: translateY(-2px);
+}
+
+#clearCartBtn {
+    display: block;
+    margin: 1.5rem auto 0.5rem; /* Consistent spacing */
+    background: #FF6347; /* Tomato (a bright red for Clear Cart button) */
+    color: #FFFFFF; /* White text */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background 0.2s ease-out, transform 0.1s ease-out;
+}
+
+#clearCartBtn:hover {
+    background: #E63D2A; /* Darker red on hover */
+    transform: translateY(-2px);
+}
+
+footer {
+    background: #1A1A1A; /* Even darker grey for footer */
+    padding: 1rem; /* More padding */
+    text-align: center;
+    font-size: 0.85rem;
+    color: #B3B3B3; /* Medium grey text for footer */
+    margin-top: auto; /* Pushes footer to the very bottom */
+}
+
+/* Styles for the notification popup */
+.notification-popup {
+    position: fixed; /* Fixed position relative to the viewport */
+    bottom: 30px; /* Further from the bottom */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust for perfect centering */
+    background-color: rgba(43, 43, 43, 0.95); /* Dark grey with higher transparency */
+    color: #fff; /* White text */
+    padding: 15px 25px; /* More padding inside the popup */
+    border-radius: 6px; /* Slightly less rounded corners */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); /* More prominent shadow */
+    z-index: 1000; /* Ensure it's above other content */
+    opacity: 0; /* Initially hidden */
+    visibility: hidden; /* Hidden from screen readers initially */
+    transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out; /* Smooth transition */
+    font-size: 1rem; /* Readable font size */
+    text-align: center;
+    min-width: 250px; /* Increased minimum width */
+    max-width: 90%; /* Max width for responsiveness */
+    font-weight: 500;
+}
+
+/* Class to show the notification popup */
+.notification-popup.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Media query for smaller screens to adjust position if needed */
+@media (max-width: 600px) {
+    .notification-popup {
+        width: calc(100% - 60px); /* More margin on very small screens */
+        bottom: 20px; /* Closer to the bottom on mobile */
+    }
+}
+
+/* Styling for the new About Section */
+.about-section {
+    background-color: #F8F8F8; /* Same as body background for continuity */
+    color: #282828; /* Dark grey text */
+    padding: 3rem 1.5rem; /* Ample padding */
+    text-align: center;
+    max-width: 1000px; /* Align with main content width */
+    margin: 3rem auto 0; /* Centered, with margin above */
+    border-top: 1px solid #E0E0E0; /* Subtle top border */
+}
+
+.about-section h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: 2rem;
+    color: #2B2B2B; /* Dark grey heading */
+    margin-bottom: 1.5rem;
+    font-weight: normal;
+}
+
+.about-section p {
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.5;
+}
+
+.about-section a {
+    color: #2B2B2B; /* Dark grey link color */
+    text-decoration: underline;
+    transition: color 0.2s ease-out;
+}
+
+.about-section a:hover {
+    color: #666666; /* Medium grey on hover */
+}
