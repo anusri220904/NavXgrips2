@@ -2,6 +2,7 @@
 const allProducts = {
     affordable: [
         { id: 'eccentric', name: 'Eccentric Grip', price: 549.00, description: 'Strengthen your forearms and grip with adjustable resistance.', images: ['eccentric1.jpg', 'eccemtric2.jpg', 'eccentric3.jpg'] },
+        { id: 'ultra', name: 'Ultra Grip', price: 649.00, description: 'Improves strength', images: ['ultra1.jpg', 'ultra2.jpg', 'ultra3.jpg'] },
         { id: 'cone_60mm', name: '60mm Cone Grip', price: 499.00, description: 'Versatile 60mm cone grip for diverse resistance workouts.', images: ['cone1.jpg', 'cone2.jpg'] },
         { id: 'cone_70mm', name: '70mm Cone Grip', price: 549.00, description: 'Larger 70mm cone grip for advanced grip training and endurance.', images: ['cone1.jpg', 'cone2.jpg'] },
         { id: 'cupping_50mm', name: '50mm Cupping Grip', price: 449.00, description: 'Cylindrical 50mm cupping grip to train forearms and fingers.', images: ['50cupping1.jpg', '50cupping2.jpg', '50cupping3.jpg'] },
