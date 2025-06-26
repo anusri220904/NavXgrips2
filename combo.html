@@ -33,10 +33,28 @@
     <section class="cart-section">
         <div id="cartPreview">
             <h2>Shopping Cart</h2>
+
+            <!-- NEW: Payment Options added here -->
+            <div class="payment-options">
+                <h3>Choose Payment Method:</h3>
+                <label>
+                    <input type="radio" name="paymentMethod" value="cod" checked> Cash on Delivery (COD)
+                </label>
+                <label>
+                    <input type="radio" name="paymentMethod" value="prepaid"> Prepaid (Online Payment)
+                </label>
+            </div>
+
             <ul id="cartItems">
+                <!-- Cart items will be populated by JavaScript -->
             </ul>
-            <p id="deliveryChargeDisplay">Delivery Charge: ₹0.00</p>
-            <p id="cartTotal">Total: ₹0.00</p>
+
+            <!-- NEW: Subtotal and updated Total/Delivery Charge display added here -->
+            <div class="order-summary">
+                <p>Subtotal: ₹<span id="cartSubtotal">0.00</span></p>
+                <p>Delivery Charge: ₹<span id="deliveryChargeDisplay">0.00</span></p>
+                <p><strong id="cartTotal">Total: ₹0.00</strong></p>
+            </div>
         </div>
         <input type="text" id="referralInput" placeholder="Enter Referral Code (optional)">
         <a id="whatsappLink" class="cart-btn" href="https://wa.me/9235698833?text=I'm%20interested%20in%20placing%20an%20order." target="_blank">Checkout on WhatsApp</a>
@@ -52,7 +70,7 @@
         // Render combo products and initialize cart when this page loads
         document.addEventListener('DOMContentLoaded', () => {
             renderProducts('combo');
-            updateCartDisplay();
+            updateCartDisplay(); // This call is essential for showing cart items on this page
         });
     </script>
     <!-- Notification Popup Element -->
