@@ -2,7 +2,6 @@
 const allProducts = {
     affordable: [
         { id: 'eccentric', name: 'Eccentric Grip', price: 549.00, description: 'Strengthen your forearms and grip with adjustable resistance.', images: ['eccentric1.jpg', 'eccemtric2.jpg', 'eccentric3.jpg'] },
-        { id: 'ultra', name: 'Ultra Grip', price: 649.00, description: 'Heavy grip for Extreme resistance workouts.', images: ['ultra1.jpg', 'ultra2.jpg', 'ultra3.jpg'] },
         { id: 'cone_60mm', name: '60mm Cone Grip', price: 499.00, description: 'Versatile 60mm cone grip for diverse resistance workouts.', images: ['cone1.jpg', 'cone2.jpg'] },
         { id: 'cone_70mm', name: '70mm Cone Grip', price: 549.00, description: 'Larger 70mm cone grip for advanced grip training and endurance.', images: ['cone1.jpg', 'cone2.jpg'] },
         { id: 'cupping_50mm', name: '50mm Cupping Grip', price: 449.00, description: 'Cylindrical 50mm cupping grip to train forearms and fingers.', images: ['50cupping1.jpg', '50cupping2.jpg', '50cupping3.jpg'] },
@@ -14,7 +13,7 @@ const allProducts = {
         { id: 'ygrip', name: 'Y-Grip', price: 449.00, description: 'Dynamic grip trainer for improving grip strength and endurance.', images: ['y1.jpg', 'y2.jpg', 'y3.jpg'] },
         { id: 'antitoproll', name: 'Anti-Toproll', price: 599.00, description: 'Strengthens Pronation and Wrist control.', images: ['at1.jpg', 'at2.jpg'] },
         { id: 'wristwrench', name: 'Wrist Wrench', price: 699.00, description: 'Improves Cupping.', images: ['wr1.jpg', 'wr2.jpg', 'wr3.jpg'] },
-],
+    ],
     premium: [
         { id: 'premium1', name: 'Premium Grips coming Soon',price: 0.00, description: 'for updates of premium grips follow us on instagram at NavXgrips', images: ['cm.png'] },
     ],
@@ -51,7 +50,7 @@ const allProducts = {
         description: 'Eccentric + Wrist-Wrench + Off-Set + Cone', // Placeholder, you will list grips here
         images: ['hooker.jpg','eccentric1.jpg','wr1.jpg','of1.jpg','cone1.jpg'] // Placeholder
     },
-        { id: 'powerpack', name: 'NavX Power Pack', price: 2099.00, originalPrice: 2400, description: 'Unleash raw strength with the essential arsenal for every armwrestler.', images: ['pro.jpg','eccentric1.jpg','cone1.jpg','50cupping1.jpg','ultra1.jpg' ] },
+        { id: 'powerpack', name: 'NavX Power Pack', price: 2099.00, originalPrice: 2400, description: 'Unleash raw strength with the essential arsenal for every armwrestler. hello', images: ['pro.jpg','eccentric1.jpg','cone1.jpg','50cupping1.jpg','ultra1.jpg' ] },
         { id: 'propack', name: 'NavX Pro Pack', price: 2999.00, originalPrice: 3400, description: 'Engineered for competitors—built to elevate your grip game.', images: ['power.jpg', 'eccentric1.jpg','cone1.jpg','50cupping1.jpg','ultra1.jpg','of1.jpg','ps1.jpg'] },
         { id: 'ultimatepack', name: 'NavX Ultimate Pack', price: 3199.00, originalPrice: 3600, description: 'The complete domination kit—no compromises, Just Victory.', images: ['ultimate.jpg','eccentric1.jpg','cone1.jpg','ultra1.jpg','of1.jpg','wr1.jpg','y1.jpg'] },
     ],
@@ -61,7 +60,7 @@ const allProducts = {
       name: 'Affordable NavX Handle',
       price: 0.00,
       description: 'An entry-level handle designed for beginners to build foundational grip strength.\n Load Capacity: 120kg',
-      images: ['cm.png'] 
+      images: ['cm.png']
     },
     {
       id: 'pro_navx_handle',
@@ -87,7 +86,14 @@ const allProducts = {
   ]
 };
 
-let cart = []; // Array to store items in the shopping cart
+// --- IMPORTANT: Initialize cart from localStorage IMMEDIATELY ---
+// This ensures 'cart' always has the correct items when the script runs.
+let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+console.log("Initial cart load:", cart);
+
+// --- Constants for delivery charges ---
+const COD_DELIVERY_CHARGE = 150.00;
+const PREPAID_DELIVERY_CHARGE = 100.00;
 
 /**
  * Renders product cards for a given category into their respective grid.
@@ -96,8 +102,8 @@ let cart = []; // Array to store items in the shopping cart
  */
 window.renderProducts = function(category) {
     const productsToRender = allProducts[category]; // Get products for the specified category
-    const targetGrid = document.getElementById(`${category}-products-grid`); // Get the target grid element
-    
+    const targetGrid = document.getElementById(`${category}-products-grid`);
+
     // Ensure the targetGrid exists before trying to clear/add content
     if (!targetGrid) {
         console.error(`Target grid for category '${category}' not found.`);
@@ -199,7 +205,7 @@ function showNotification(message) {
             notificationPopup.classList.remove('show');
         }, 3000);
     } else {
-        console.warn("Notification popup element not found.");
+        console.warn("Notification popup element with ID 'notification-popup' not found.");
     }
 }
 
@@ -210,9 +216,10 @@ function showNotification(message) {
  */
 window.addToCart = function(name, price) {
     cart.push({ name, price });
-    updateCartDisplay();
-    // Save cart to local storage
+    // Save cart to local storage immediately after adding
     localStorage.setItem('shoppingCart', JSON.stringify(cart));
+    console.log("Item added to cart. New cart:", cart); // Debugging log
+    updateCartDisplay(); // Update display after changes
     showNotification(`${name} added to cart!`); // Show popup message
 }
 
@@ -221,70 +228,103 @@ window.addToCart = function(name, price) {
  */
 window.clearCart = function() {
     cart = [];
-    updateCartDisplay();
-    // Clear cart from local storage
+    // Clear cart from local storage immediately
     localStorage.removeItem('shoppingCart');
+    console.log("Cart cleared. Cart:", cart); // Debugging log
+    updateCartDisplay(); // Update display after changes
     showNotification("Cart cleared!"); // Show popup message
 }
 
 /**
- * Updates the display of the shopping cart, including items, total, and WhatsApp link.
+ * Updates the display of the shopping cart, including items, subtotal, delivery charge, total, and WhatsApp link.
  */
 window.updateCartDisplay = function() {
-    // Load cart from local storage if not already loaded
-    if (cart.length === 0 && localStorage.getItem('shoppingCart')) {
-        try {
-            cart = JSON.parse(localStorage.getItem('shoppingCart'));
-        } catch (e) {
-            console.error("Error parsing cart from local storage:", e);
-            cart = []; // Reset cart if parsing fails
-        }
-    }
+    console.log("updateCartDisplay is running!"); // Debugging log
+    console.log("Current cart array state in updateCartDisplay:", cart); // Debugging log
 
     const cartItemsList = document.getElementById('cartItems');
-    const cartTotalElement = document.getElementById('cartTotal');
+    const cartSubtotalElement = document.getElementById('cartSubtotal');
     const deliveryChargeDisplay = document.getElementById('deliveryChargeDisplay');
+    const cartTotalElement = document.getElementById('cartTotal');
     const whatsappLink = document.getElementById('whatsappLink');
     const referralCodeInput = document.getElementById('referralInput');
+    const paymentMethodRadios = document.querySelectorAll('input[name="paymentMethod"]');
 
-    if (!cartItemsList || !cartTotalElement || !deliveryChargeDisplay || !whatsappLink || !referralCodeInput) {
-        console.warn("Cart display elements not found. Skipping cart update.");
-        return;
+    // Check if all essential elements are found
+    if (!cartItemsList || !cartSubtotalElement || !deliveryChargeDisplay || !cartTotalElement || !whatsappLink || !referralCodeInput || paymentMethodRadios.length === 0) {
+        console.warn("One or more essential cart display HTML elements not found. Please ensure your HTML has the correct IDs: 'cartItems', 'cartSubtotal', 'deliveryChargeDisplay', 'cartTotal', 'whatsappLink', 'referralInput', and payment method radios with name 'paymentMethod'. Skipping cart update.");
+        return; // Exit if elements are missing
     }
+    console.log("All essential HTML elements found."); // Debugging log
 
     cartItemsList.innerHTML = ''; // Clear current cart items display
-    let total = 0;
+    let subtotal = 0; // Initialize subtotal
 
-    // Populate cart items and calculate subtotal
-    cart.forEach((item, index) => {
-        const listItem = document.createElement('li');
-        listItem.innerHTML = `
-            <span>${item.name} - ₹${item.price.toFixed(2)}</span>
-            <button class="remove-item" data-index="${index}">&times;</button>
-        `;
-        cartItemsList.appendChild(listItem);
-        total += item.price;
-    });
-
-    // Add event listeners for remove buttons on newly added cart items
-    cartItemsList.querySelectorAll('.remove-item').forEach(button => {
-        button.addEventListener('click', (event) => {
-            const indexToRemove = parseInt(event.target.dataset.index);
-            const removedItemName = cart[indexToRemove].name; // Get name before removing
-            cart.splice(indexToRemove, 1); // Remove item from cart array
-            updateCartDisplay(); // Re-render cart display
-            localStorage.setItem('shoppingCart', JSON.stringify(cart)); // Update local storage
-            showNotification(`${removedItemName} removed from cart.`); // Show popup message for removal
+    // Populate cart items or show empty message
+    if (cart.length === 0) {
+        const emptyMessage = document.createElement('li');
+        emptyMessage.textContent = 'Your cart is empty.';
+        emptyMessage.style.textAlign = 'center';
+        emptyMessage.style.color = '#B3B3B3'; // Medium grey
+        cartItemsList.appendChild(emptyMessage);
+        console.log("Cart is empty. Displaying empty message."); // Debugging log
+    } else {
+        cart.forEach((item, index) => {
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `
+                <span>${item.name} - ₹${item.price.toFixed(2)}</span>
+                <button class="remove-item" data-index="${index}">&times;</button>
+            `;
+            cartItemsList.appendChild(listItem);
+            subtotal += item.price;
+            console.log(`Added item to display: ${item.name}`); // Debugging log
         });
-    });
 
-    const deliveryCharge = 100;
-    total += deliveryCharge; // Add delivery charge to total
+        // Add event listeners for remove buttons after items are added to DOM
+        cartItemsList.querySelectorAll('.remove-item').forEach(button => {
+            button.addEventListener('click', (event) => {
+                const indexToRemove = parseInt(event.target.dataset.index);
+                const removedItemName = cart[indexToRemove].name;
+                cart.splice(indexToRemove, 1);
+                localStorage.setItem('shoppingCart', JSON.stringify(cart));
+                console.log(`Item removed: ${removedItemName}. New cart:`, cart); // Debugging log
+                updateCartDisplay(); // Re-render cart display
+                showNotification(`${removedItemName} removed from cart.`);
+            });
+        });
+    }
 
-    cartTotalElement.textContent = `Total: ₹${total.toFixed(2)}`;
-    deliveryChargeDisplay.textContent = `Delivery Charge: ₹${deliveryCharge.toFixed(2)}`;
+    // --- Dynamic Delivery Charge Logic ---
+    let currentDeliveryCharge = 0;
+    const selectedPaymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
 
-    const phoneNumber = "9235698833"; // Replace with your actual WhatsApp number
+    if (selectedPaymentMethod) {
+        if (selectedPaymentMethod.value === 'cod') {
+            currentDeliveryCharge = COD_DELIVERY_CHARGE; // ₹150 for COD
+            console.log("Payment method: COD. Delivery charge:", currentDeliveryCharge); // Debugging log
+        } else if (selectedPaymentMethod.value === 'prepaid') {
+            currentDeliveryCharge = PREPAID_DELIVERY_CHARGE; // ₹100 for Prepaid
+            console.log("Payment method: Prepaid. Delivery charge:", currentDeliveryCharge); // Debugging log
+        }
+    } else {
+        // Default to COD if no payment method is selected initially (e.g., first page load)
+        currentDeliveryCharge = COD_DELIVERY_CHARGE;
+        const codRadio = document.querySelector('input[name="paymentMethod"][value="cod"]');
+        if (codRadio) codRadio.checked = true; // Programmatically check COD radio
+        console.log("No payment method selected, defaulting to COD. Delivery charge:", currentDeliveryCharge); // Debugging log
+    }
+
+    let finalTotal = subtotal + currentDeliveryCharge;
+
+    // Update the display elements
+    cartSubtotalElement.textContent = subtotal.toFixed(2);
+    deliveryChargeDisplay.textContent = currentDeliveryCharge.toFixed(2);
+    cartTotalElement.textContent = `Total: ₹${finalTotal.toFixed(2)}`;
+    console.log(`Subtotal: ${subtotal.toFixed(2)}, Delivery: ${currentDeliveryCharge.toFixed(2)}, Final Total: ${finalTotal.toFixed(2)}`); // Debugging log
+
+
+    // Prepare WhatsApp message
+    const phoneNumber = "9235698833"; // Your actual WhatsApp number
     let message = "Hello, I would like to order the following items from NavXgrips:\n";
 
     if (cart.length === 0) {
@@ -293,8 +333,10 @@ window.updateCartDisplay = function() {
         cart.forEach(item => {
             message += `- ${item.name} - ₹${item.price.toFixed(2)}\n`;
         });
-        message += `Delivery Charge: ₹${deliveryCharge.toFixed(2)}\n`;
-        message += `Total: ₹${total.toFixed(2)}`;
+        message += `Subtotal: ₹${subtotal.toFixed(2)}\n`;
+        message += `Delivery Charge: ₹${currentDeliveryCharge.toFixed(2)}\n`;
+        message += `Total: ₹${finalTotal.toFixed(2)}\n`;
+        message += `Payment Method: ${selectedPaymentMethod ? (selectedPaymentMethod.value === 'cod' ? 'Cash on Delivery' : 'Prepaid') : 'Cash on Delivery (Default)'}`; // Added default for WhatsApp message
     }
 
     const referralCode = referralCodeInput.value;
@@ -303,15 +345,35 @@ window.updateCartDisplay = function() {
     }
     const encodedMessage = encodeURIComponent(message);
     whatsappLink.href = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    console.log("WhatsApp message link updated."); // Debugging log
 }
 
-// Ensure the cart is loaded and displayed when any page using this script loads
-document.addEventListener('DOMContentLoaded', updateCartDisplay);
-
-// Also update WhatsApp link when referral code changes
+// --- Event Listeners for Page Load and User Interaction ---
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM Content Loaded. Initializing cart display and listeners."); // Debugging log
+
+    // This will initially load the cart from localStorage and display it
+    updateCartDisplay();
+
+    // Attach event listeners to payment method radios only once on page load
+    const paymentMethodRadios = document.querySelectorAll('input[name="paymentMethod"]');
+    paymentMethodRadios.forEach(radio => {
+        radio.addEventListener('change', updateCartDisplay); // Recalculate everything on change
+    });
+    console.log("Payment method radio listeners attached."); // Debugging log
+
+
+    // Also update WhatsApp link when referral code changes
     const referralCodeInput = document.getElementById('referralInput');
     if (referralCodeInput) {
         referralCodeInput.addEventListener('input', updateCartDisplay);
+        console.log("Referral input listener attached."); // Debugging log
+    }
+
+    // Event listener for the clear cart button (assuming it exists in your HTML)
+    const clearCartBtn = document.getElementById('clearCartBtn');
+    if (clearCartBtn) {
+        clearCartBtn.addEventListener('click', window.clearCart); // Call the clearCart function
+        console.log("Clear cart button listener attached."); // Debugging log
     }
 });
