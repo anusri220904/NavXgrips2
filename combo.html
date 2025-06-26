@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NavXgrips - Combo Offers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css"> <!-- Link to external CSS file -->
+</head>
+<body class="loaded">
+    <header>
+        <div class="header-content">
+            <img src="logo.jpeg" alt="NavXgrips Logo">
+            <h1>NavXgrips</h1>
+            <p>Unleash Your Hand Strength</p>
+        </div>
+    </header>
+
+    <div id="app-container">
+        <!-- Combo Offers Section -->
+        <section id="combo-section" class="product-category-section active">
+            <a href="./index.html" class="back-button">&larr; Back to Home</a>
+            <h2 class="section-title">Combo Offers</h2>
+            <div class="products-grid" id="combo-products-grid">
+                <!-- Products will be loaded here by JavaScript -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Cart Section (Common to all pages for consistent experience) -->
+    <section class="cart-section">
+        <div id="cartPreview">
+            <h2>Shopping Cart</h2>
+            <ul id="cartItems">
+            </ul>
+            <p id="deliveryChargeDisplay">Delivery Charge: ₹0.00</p>
+            <p id="cartTotal">Total: ₹0.00</p>
+        </div>
+        <input type="text" id="referralInput" placeholder="Enter Referral Code (optional)">
+        <a id="whatsappLink" class="cart-btn" href="https://wa.me/9235698833?text=I'm%20interested%20in%20placing%20an%20order." target="_blank">Checkout on WhatsApp</a>
+        <button id="clearCartBtn" onclick="clearCart()">Clear Cart</button>
+    </section>
+
+    <footer>
+        &copy; 2025 NavXgrips. All rights reserved.
+    </footer>
+
+    <script src="./script.js"></script> <!-- Link to external JavaScript file -->
+    <script>
+        // Render combo products and initialize cart when this page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts('combo');
+            updateCartDisplay();
+        });
+    </script>
+    <!-- Notification Popup Element -->
+    <div id="notification-popup" class="notification-popup"></div>
+</body>
+</html>
