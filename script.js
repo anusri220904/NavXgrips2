@@ -2,6 +2,7 @@
 const allProducts = {
     affordable: [
         { id: 'eccentric', name: 'Eccentric Grip', price: 549.00, description: 'Strengthen your forearms and grip with adjustable resistance.', images: ['eccentric1.jpg', 'eccemtric2.jpg', 'eccentric3.jpg'] },
+        { id: 'ultra', name: 'Ultra Grip', price: 549.00, description: 'Heavy grip for Extreme resistance workouts.', images: ['ultra1.jpg', 'ultra2.jpg', 'ultra3.jpg'] },
         { id: 'cone_60mm', name: '60mm Cone Grip', price: 499.00, description: 'Versatile 60mm cone grip for diverse resistance workouts.', images: ['cone1.jpg', 'cone2.jpg'] },
         { id: 'cone_70mm', name: '70mm Cone Grip', price: 549.00, description: 'Larger 70mm cone grip for advanced grip training and endurance.', images: ['cone1.jpg', 'cone2.jpg'] },
         { id: 'cupping_50mm', name: '50mm Cupping Grip', price: 449.00, description: 'Cylindrical 50mm cupping grip to train forearms and fingers.', images: ['50cupping1.jpg', '50cupping2.jpg', '50cupping3.jpg'] },
@@ -50,7 +51,7 @@ const allProducts = {
         description: 'Eccentric + Wrist-Wrench + Off-Set + Cone', // Placeholder, you will list grips here
         images: ['hooker.jpg','eccentric1.jpg','wr1.jpg','of1.jpg','cone1.jpg'] // Placeholder
     },
-        { id: 'powerpack', name: 'NavX Power Pack', price: 2099.00, originalPrice: 2400, description: 'Unleash raw strength with the essential arsenal for every armwrestler. hello', images: ['pro.jpg','eccentric1.jpg','cone1.jpg','50cupping1.jpg','ultra1.jpg' ] },
+        { id: 'powerpack', name: 'NavX Power Pack', price: 2099.00, originalPrice: 2400, description: 'Unleash raw strength with the essential arsenal for every armwrestler.', images: ['pro.jpg','eccentric1.jpg','cone1.jpg','50cupping1.jpg','ultra1.jpg' ] },
         { id: 'propack', name: 'NavX Pro Pack', price: 2999.00, originalPrice: 3400, description: 'Engineered for competitors—built to elevate your grip game.', images: ['power.jpg', 'eccentric1.jpg','cone1.jpg','50cupping1.jpg','ultra1.jpg','of1.jpg','ps1.jpg'] },
         { id: 'ultimatepack', name: 'NavX Ultimate Pack', price: 3199.00, originalPrice: 3600, description: 'The complete domination kit—no compromises, Just Victory.', images: ['ultimate.jpg','eccentric1.jpg','cone1.jpg','ultra1.jpg','of1.jpg','wr1.jpg','y1.jpg'] },
     ],
