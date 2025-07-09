@@ -16,8 +16,11 @@ const allProducts = {
         { id: 'wristwrench', name: 'Wrist Wrench', price: 749.00, description: 'Improves Cupping.', images: ['wr1.jpg', 'wr2.jpg', 'wr3.jpg'] },
     ],
     premium: [
-        { id: 'premium1', name: 'Premium Grips coming Soon',price: 0.00, description: 'for updates of premium grips follow us on instagram at NavXgrips', images: ['cm.png'] },
-    ],
+        { id: 'standard_hand_grip', name: 'Standard Hand Grip', price: 799.00, description: 'Essential for building foundational crushing grip strength, vital for arm wrestling.', images: ['shg1.jpg', 'shg2.jpg','shg3.jpg'] },
+        { id: 'lh_rh_combo_grip', name: 'Left & Right Hand Grip Combo', price: 1399.00, description: 'A set of grips designed for balanced training of both left and right-hand crushing and static grip strength.', images: ['cshg.jpg', 'shg1.jpg', 'shg2.jpg'] },
+        { id: 'egg_shape_grip', name: 'Egg Shape Grip', price: 549.00, description: 'Ergonomically designed egg-shaped grip to target and improve pinch grip and finger strength.', images: ['esg1.jpg'] },
+        { id: 'monster_grip', name: 'Monster Grip', price: 799.00, description: 'An extra-thick and heavy-duty grip designed for advanced arm wrestling training, focusing on extreme crushing power.', images: ['mg1.jpg', 'mg2.jpg', 'mg3.jpg']},
+    ], 
     combo: [
         {
         id: 'strength_trio_pack',
