@@ -20,6 +20,7 @@ const allProducts = {
         { id: 'lh_rh_combo_grip', name: 'Left & Right Hand Grip Combo', price: 1399.00, description: 'A set of grips designed for balanced training of both left and right-hand crushing and static grip strength.', images: ['cshg.jpg', 'shg1.jpg', 'shg2.jpg'] },
         { id: 'egg_shape_grip', name: 'Egg Shape Grip', price: 549.00, description: 'Ergonomically designed egg-shaped grip to target and improve pinch grip and finger strength.', images: ['esg1.jpg'] },
         { id: 'monster_grip', name: 'Monster Grip', price: 799.00, description: 'An extra-thick and heavy-duty grip designed for advanced arm wrestling training, focusing on extreme crushing power.', images: ['mg1.jpg', 'mg2.jpg', 'mg3.jpg']},
+        { id: 'grip_cone_strap', name: 'Cone with Strap', price: 749.00, description: 'A versatile cone grip with an adjustable strap for targeted forearm and grip strength development.', images: ['cp1.jpg', 'cp2.jpg', 'cp3.jpg']}
     ], 
     combo: [
         {
